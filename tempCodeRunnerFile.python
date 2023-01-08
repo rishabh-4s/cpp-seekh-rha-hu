@@ -1,0 +1,38 @@
+n=int(input())
+arrival_time= [ int(x) for x in input().split() ]
+billing_time=[ int(x) for x in input().split() ]
+cost= [ int(x) for x in input().split() ]
+billing_sequence=[]
+for i in range(n):
+    billing_sequence.append((arrival_time[i], i))
+billing_sequence.sort()
+# print(*billing_sequence)
+for i in range(n):
+    print("C",billing_sequence[i][1]+1, end=" ")
+print()
+completion_time=[0]*n
+curtime=0
+for i in range(n):
+    curtime+= billing_time[billing_sequence[i][1]]
+    completion_time[billing_sequence[i][1]] =  curtime
+turn_around=[0]*n
+for i in range(n):
+    turn_around[i]=completion_time[i] - arrival_time[i]
+print( "Wait time of each customer is : ",end="")
+wait_time=[0]*n
+for i in range(n):
+    wait_time[i]= turn_around[i] - billing_time[i]
+print(*wait_time)
+print( "Turn Around time of each customer is : ",end="")
+print(*turn_around)
+sum=0
+for i in wait_time:
+    sum+=i
+print( "AVG Wait time = ", sum/n)
+sum=0
+for i in turn_around:
+    sum+=i
+print( "AVG Turn Around time = ", sum/n)
+
+
+
